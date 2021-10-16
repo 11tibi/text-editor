@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import axios from'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -13,17 +14,24 @@ import Container from '@mui/material/Container';
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            password: '',
-        }
-
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
+        axios({
+            method: 'POST',
+            url: process.env.REACT_APP_API_ENDPOINT + 'api-token-auth/',
+            data: data,
+            responseType: 'json',
+        })
+            .then(function(response){
+                localStorage.setItem('token', response.data.token);
+            })
+            .catch(function(error){
+                console.info(error);
+            })
     }
 
     render() {
@@ -32,7 +40,7 @@ class Login extends React.Component {
                 <CssBaseline/>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 15,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -49,7 +57,7 @@ class Login extends React.Component {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
-                                    name="email"
+                                    name="username"
                                     autoComplete="email"
                                 />
                             </Grid>
@@ -67,7 +75,7 @@ class Login extends React.Component {
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                                    label="Keep me loged in"
+                                    label="Keep me logged in"
                                 />
                             </Grid>
                         </Grid>
