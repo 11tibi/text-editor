@@ -1,0 +1,6 @@
+[client]
+database = 'text_editor'
+host = 'localhost'
+user = 'root'
+password = ''
+default-character-set = utf8
