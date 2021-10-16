@@ -21,7 +21,6 @@ class Register extends React.Component {
         event.preventDefault();
         const { history: { push } } = this.props;
         const data = new FormData(event.target);
-        // console.log(data.get('notifications'));
         axios({
             method: 'POST',
             url: process.env.REACT_APP_API_ENDPOINT + 'api/register/',

@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from'axios';
+import {connect} from 'react-redux';
+import {login} from '../actions/authenticated'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,6 +13,14 @@ import Box from '@mui/material/Box';
 import Typography from '@material-ui/core/Typography'
 import Container from '@mui/material/Container';
 
+const mapState = state => {
+  return {
+    logged_in: state.logged_in,
+  }
+};
+
+const mapDispatch = {login};
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +30,7 @@ class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
+        const loginAction = this.props;
         axios({
             method: 'POST',
             url: process.env.REACT_APP_API_ENDPOINT + 'api-token-auth/',
@@ -28,6 +39,7 @@ class Login extends React.Component {
         })
             .then(function(response){
                 localStorage.setItem('token', response.data.token);
+                loginAction.login();
             })
             .catch(function(error){
                 console.info(error);
@@ -101,4 +113,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default connect(mapState, mapDispatch)(Login);
