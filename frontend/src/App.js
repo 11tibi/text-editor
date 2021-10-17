@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './components/login';
 import Register from './components/register';
+import Navbar from './components/navbar';
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,7 +11,7 @@ import {
 function App() {
     return (
         <Router>
-            {/*<Navbar/>*/}
+            <Navbar />
             <Switch>
                 <Route exact path='/login/' component={Login}/>
                 <Route exact path='/register/' component={Register}/>

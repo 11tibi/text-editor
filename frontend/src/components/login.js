@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 
 const mapState = state => {
   return {
-    logged_in: state.logged_in,
+    authenticated: state.authenticated,
   }
 };
 
