@@ -22,6 +22,7 @@ class Logout extends React.Component {
     handleLogout() {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        this.props.logout();
         this.props.history.push('/login/');
     }
 
