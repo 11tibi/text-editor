@@ -1,8 +1,8 @@
 import React from 'react';
 import {logout} from "../actions/authenticated";
 import {connect} from "react-redux";
-import axios from'axios';
 import Button from "@mui/material/Button";
+import { withRouter } from "react-router";
 
 const mapState = state => {
   return {
@@ -20,12 +20,8 @@ class Logout extends React.Component {
     }
 
     handleLogout() {
-        axios({
-            method: 'POST',
-            url: process.env.REACT_APP_API_ENDPOINT + 'api/logout/',
-            data: {token: localStorage.getItem('token')},
-        })
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         this.props.history.push('/login/');
     }
 
@@ -36,4 +32,4 @@ class Logout extends React.Component {
     }
 }
 
-export default connect(mapState, mapDispatch)(Logout);
+export default withRouter(connect(mapState, mapDispatch)(Logout));

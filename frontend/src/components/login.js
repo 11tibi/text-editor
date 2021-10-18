@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import axios from'axios';
+import axios from 'axios';
 import {connect} from 'react-redux';
 import {login} from '../actions/authenticated'
 import Button from '@mui/material/Button';
@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@material-ui/core/Typography'
 import Container from '@mui/material/Container';
+import axiosInstance from "../axiosApi";
 
 const mapState = state => {
   return {
@@ -31,19 +32,20 @@ class Login extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target);
         const loginAction = this.props;
-        axios({
-            method: 'POST',
-            url: process.env.REACT_APP_API_ENDPOINT + 'api-token-auth/',
-            data: data,
-            responseType: 'json',
-        })
-            .then(function(response){
-                localStorage.setItem('token', response.data.token);
+        try{
+            axiosInstance.post('api/token/', {
+                email: data.get('email'),
+                password: data.get('password'),
+            }).then(function (response) {
+                axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access;
+                localStorage.setItem('access_token', response.data.access);
+                localStorage.setItem('refresh_token', response.data.refresh);
                 loginAction.login();
+                return response.data;
             })
-            .catch(function(error){
-                console.info(error);
-            })
+        } catch (error) {
+            throw error;
+        }
     }
 
     render() {
@@ -69,7 +71,7 @@ class Login extends React.Component {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
-                                    name="username"
+                                    name="email"
                                     autoComplete="email"
                                 />
                             </Grid>

@@ -30,7 +30,13 @@ class Navbar extends React.Component {
                         </Typography>
                         {/*https://github.com/satya164/react-simple-code-editor*/}
                         {/*https://github.com/securingsincity/react-ace*/}
-                        { this.props.authenticated === true ? <Logout /> : <Button color="inherit">Login</Button> }
+                        {/*https://www.bezkoder.com/react-redux-jwt-auth/*/}
+                        {/*https://www.bezkoder.com/react-refresh-token/*/}
+                        {/*https://hackernoon.com/110percent-complete-jwt-authentication-with-django-and-react-2020-iejq34ta*/}
+
+                        { this.props.authenticated === true ?
+                            <Logout /> :
+                            <Button color="inherit" component={Link} to="/login/">Login</Button> }
                     </Toolbar>
                 </AppBar>
             </Box>
