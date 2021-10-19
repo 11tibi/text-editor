@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {login} from '../actions/authenticated'
 import Button from '@mui/material/Button';
@@ -32,6 +31,7 @@ class Login extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target);
         const loginAction = this.props;
+        const { history: { push } } = this.props;
         try{
             axiosInstance.post('api/token/', {
                 email: data.get('email'),
@@ -41,6 +41,7 @@ class Login extends React.Component {
                 localStorage.setItem('access_token', response.data.access);
                 localStorage.setItem('refresh_token', response.data.refresh);
                 loginAction.login();
+                push('/dashboard/');
                 return response.data;
             })
         } catch (error) {
