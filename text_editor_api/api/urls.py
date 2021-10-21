@@ -1,7 +1,7 @@
-from django.urls import path, include
-from .views import RegisterView
+from django.urls import path
+from .views import RegisterView, ThemeView
 
 urlpatterns = [
     path('register/', RegisterView.as_view()),
-
+    path('theme/', ThemeView.as_view()),
 ]

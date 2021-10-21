@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Theme
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -13,3 +13,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class ThemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Theme
+        fields = '__all__'

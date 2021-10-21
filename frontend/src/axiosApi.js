@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use((response) => {
 }, async function (error) {
     const originalRequest = error.config;
     const refreshToken = localStorage.getItem('refresh_token');
-    if (error.response.status === 403 && !originalRequest._retry) {
+    if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
         axiosInstance.post('api/token/refresh/', {
