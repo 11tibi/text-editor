@@ -8,3 +8,4 @@ const themes = (state = [], action) => {
 }
 
 export default themes;
+

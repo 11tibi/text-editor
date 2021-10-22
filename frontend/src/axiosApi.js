@@ -30,13 +30,14 @@ axiosInstance.interceptors.response.use((response) => {
 
         axiosInstance.post('api/token/refresh/', {
             refresh: refreshToken,
-        }).then(function (response) {
+        }).then((response) => {
             const newAccessToken = response.data.access;
             axiosInstance.defaults.headers['Authorization'] = "JWT " + newAccessToken;
             localStorage.setItem('access_token', newAccessToken);
-
+            return axiosInstance(originalRequest);
         }).catch(function (error) {
             console.info(error);
+            return Promise.reject(error);
         })
     } else {
         console.info('Refresh token is expired');

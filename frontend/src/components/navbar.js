@@ -32,7 +32,6 @@ class Navbar extends React.Component {
                         {/*https://www.bezkoder.com/react-redux-jwt-auth/*/}
                         {/*https://www.bezkoder.com/react-refresh-token/*/}
 
-                        {/*https://robkendal.co.uk/blog/2020-02-20-creating-a-react-code-editor-and-syntax-highlighter*/}
                         { this.props.authenticated === true ?
                             <Logout /> :
                             <Button color="inherit" component={Link} to="/login/">Login</Button> }

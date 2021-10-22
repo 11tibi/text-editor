@@ -1,6 +1,7 @@
 import React from 'react';
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import TextArea from './text_area';
 import Output from './output';
 import axiosInstance from "../axiosApi";
@@ -26,13 +27,20 @@ class Editor extends React.Component {
 
     render() {
         return (
-            <Grid container spacing={2} mt={0}>
+            <Grid container spacing={2} mt={0} >
                 <CssBaseline/>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={6}>
+                <Grid item xs={1} sm={1} md={1}>
+                    <Box sx={{ bgcolor: '#45215f', height: '100vh' }} />
+
+                </Grid>
+                <Grid item xs={11} sm={11} md={6}>
+                    {/*<Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />*/}
+
                     <TextArea />
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={12} sm={12} md={5}>
+                    {/*<Box sx={{ bgcolor: '#ce4513', height: '100vh' }} />*/}
+
                     <Output />
                 </Grid>
             </Grid>
