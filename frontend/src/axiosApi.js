@@ -20,30 +20,27 @@ const axiosInstance = axios.create({
     }
 });
 
-axiosInstance.interceptors.response.use((response) => {
-    return response;
-}, async function (error) {
-    const originalRequest = error.config;
-    const refreshToken = localStorage.getItem('refresh_token');
-    if (error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-
-        axiosInstance.post('api/token/refresh/', {
+const interceptor = axiosInstance.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response.status !== 401) {
+            return Promise.reject(error);
+        }
+        axiosInstance.interceptors.response.eject(interceptor);
+        const refreshToken = localStorage.getItem('refresh_token');
+        return axiosInstance.post('api/token/refresh/', {
             refresh: refreshToken,
         }).then((response) => {
             const newAccessToken = response.data.access;
-            axiosInstance.defaults.headers['Authorization'] = "JWT " + newAccessToken;
+            error.response.config.headers['Authorization'] = "JWT " + newAccessToken;
             localStorage.setItem('access_token', newAccessToken);
-            return axiosInstance(originalRequest);
+            return axiosInstance(error.response.config);
         }).catch(function (error) {
             console.info(error);
+            this.router.push('/login');
             return Promise.reject(error);
         })
-    } else {
-        console.info('Refresh token is expired');
-        window.location.href = '/login/';
     }
-})
-
+)
 
 export default connect(mapState, mapDispatch)(axiosInstance);
