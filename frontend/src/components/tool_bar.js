@@ -36,8 +36,8 @@ class ToolBar extends React.Component {
 
     }
 
-    handleChange(event, value) {
-        let new_data = {id: value.props.value, name: value.props.children};
+    handleChange(e, value) {
+        let new_data = {id: value.props.value, name: value.props['data-code']};
         this.props.select_theme(new_data);
     }
 
@@ -59,7 +59,7 @@ class ToolBar extends React.Component {
                             displayEmpty
                             onChange={this.handleChange}
                         >
-                            {this.props.themes.map((themes) => <MenuItem value={themes.id}>{themes.name}</MenuItem>)}
+                            {this.props.themes.map((themes) => <MenuItem value={themes.id} data-code={themes.link}>{themes.name}</MenuItem>)}
                         </Select>
                     </FormControl>
                 </Grid>

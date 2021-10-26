@@ -15,9 +15,10 @@ import "ace-builds/src-noconflict/theme-kuroir";
 import "ace-builds/src-noconflict/theme-twilight";
 import "ace-builds/src-noconflict/theme-xcode";
 import "ace-builds/src-noconflict/theme-textmate";
-// import "ace-builds/src-noconflict/theme-solarized-dark";
-// import "ace-builds/src-noconflict/theme-solarized-light";
+import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/theme-solarized_light";
 import "ace-builds/src-noconflict/theme-terminal";
+import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/ext-language_tools";
 
 import 'ace-builds/src-noconflict/mode-c_cpp'
@@ -37,9 +38,6 @@ class TextArea extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        // this.props.themes.forEach(th => {
-        //     require('ace-builds/src-noconflict/theme-' + th.name);
-        // });
     }
     
     handleChange(value) {
