@@ -2,6 +2,7 @@ import requests
 
 
 class Judge0:
+    # https://rapidapi.com/judge0-official/api/judge0-ce/
     BASE_URL = 'https://judge0-ce.p.rapidapi.com/'
     HEADERS = {
         'x-rapidapi-host': "judge0-ce.p.rapidapi.com",
