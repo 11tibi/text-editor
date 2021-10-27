@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Theme
+from .models import User, Theme, Code, Language
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -18,4 +18,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 class ThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Theme
+        fields = '__all__'
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
+
+
+class CodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Code
         fields = '__all__'

@@ -59,6 +59,7 @@ class User(AbstractBaseUser):
 class Language(models.Model):
     name = models.CharField(max_length=50, unique=True)
     extension = models.CharField(max_length=10, unique=True)
+    default_code = models.CharField(max_length=250)
 
     def __str__(self):
         return f'{self.name}'
@@ -66,9 +67,21 @@ class Language(models.Model):
 
 class Theme(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    link = models.CharField(max_length=50, unique=True)
 
     class Meta:
         ordering = ['name']
 
     def __str__(self):
         return f'{self.name}'
+
+
+class Code(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.RESTRICT)
+    language = models.ForeignKey(Language, on_delete=models.RESTRICT)
+    public = models.BooleanField(default=True)
+    code = models.TextField()
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.code}'

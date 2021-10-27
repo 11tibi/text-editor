@@ -39,7 +39,7 @@ class TextArea extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
-    
+
     handleChange(value) {
         this.props.setCode(value);
     }
@@ -54,6 +54,13 @@ class TextArea extends React.Component {
                     onChange={this.handleChange}
                     name="UNIQUE_ID_OF_DIV"
                     editorProps={{$blockScrolling: true}}
+                    setOptions={{
+                        enableBasicAutocompletion: true,
+                        enableLiveAutocompletion: true,
+                        enableSnippets: true,
+                        showLineNumbers: true,
+                        tabSize: 4
+                    }}
                     fontSize={16}
                 />
             </div>
