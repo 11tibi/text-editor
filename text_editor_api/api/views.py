@@ -44,11 +44,18 @@ class CodeView(viewsets.ViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def partial_update(self, request, pk=None):
-        if Code.objects.filter(user_id=request.user.id).exists():
-            pass
+        if self.queryset.filter(user_id=request.user.id, id=pk).exists():
+            code_instance = get_object_or_404(self.queryset, pk=pk)
+            serializer = CodeSerializer(code_instance, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(
                 {'Access forbidden': 'You don\'t have permission to access this resource'},
@@ -56,4 +63,11 @@ class CodeView(viewsets.ViewSet):
             )
 
     def delete(self, request, pk=None):
-        pass
+        if self.queryset.filter(user_id=request.user.id, id=pk).exists():
+            get_object_or_404(self.queryset, pk=pk).delete()
+            return Response({'Success': 'Resource deleted.'}, status=status.HTTP_200_OK)
+        else:
+            return Response(
+                {'Access forbidden': 'You don\'t have permission to access this resource'},
+                status=status.HTTP_403_FORBIDDEN
+            )
