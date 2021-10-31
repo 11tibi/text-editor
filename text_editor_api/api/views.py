@@ -2,6 +2,8 @@ from rest_framework import generics, permissions, viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
+
 from .serializers import (
     RegisterSerializer,
     ThemeSerializer,
@@ -71,3 +73,13 @@ class CodeView(viewsets.ViewSet):
                 {'Access forbidden': 'You don\'t have permission to access this resource'},
                 status=status.HTTP_403_FORBIDDEN
             )
+
+
+class CodeSubmitView(APIView):
+    permission_classes = [permissions.AllowAny, ]
+    judge_api = Judge0()
+
+    def post(self, request):
+        data = request.data
+        response = self.judge_api.submission(data['code'], data['language'])
+        return Response(response, status=status.HTTP_200_OK)
