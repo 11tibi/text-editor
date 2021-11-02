@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 
 
 import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-tomorrow";
@@ -49,7 +50,7 @@ class TextArea extends React.Component {
             <div>
                 <CssBaseline/>
                 <AceEditor
-                    mode="c_cpp"
+                    mode="python"
                     theme={this.props.editor_theme.name}
                     onChange={this.handleChange}
                     name="UNIQUE_ID_OF_DIV"

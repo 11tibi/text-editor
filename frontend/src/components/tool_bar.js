@@ -6,10 +6,9 @@ import FormControl from '@mui/material/FormControl';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import IconButton from "@mui/material/IconButton/IconButton";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
 import axiosInstance from '../axiosApi';
 import {select_theme} from "../actions/text_area";
+import {setOutput} from '../actions/code';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 
@@ -18,10 +17,11 @@ const mapState = state => {
         editor_theme: state.editor_theme,
         themes: state.themes,
         code: state.code,
+        output: state.output,
     }
 };
 
-const mapDispatch = {select_theme};
+const mapDispatch = {select_theme, setOutput};
 
 class ToolBar extends React.Component {
     constructor(props) {
@@ -42,7 +42,22 @@ class ToolBar extends React.Component {
     }
 
     handleRun(event) {
-        alert('run');
+        let data = {
+            code: this.props.code.code,
+            language: this.props.code.language_id,
+        };
+        try {
+            axiosInstance.post('api/submit/', data).then(
+                (response) => {
+                    this.props.setOutput((
+                        '\n' + response.data.stdout + '\nProcess finished with exit code ' +
+                        response.data.exit_code + '\nExecution time ' + response.data.time
+                    ));
+                }
+            )
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     handleCopy(event) {

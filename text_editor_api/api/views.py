@@ -76,7 +76,7 @@ class CodeView(viewsets.ViewSet):
 
 
 class CodeSubmitView(APIView):
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
     judge_api = Judge0()
 
     def post(self, request):

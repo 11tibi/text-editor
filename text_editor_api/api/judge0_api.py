@@ -22,13 +22,16 @@ class Judge0:
             'stdin': stdin
         }
 
-        token = requests.request(
-            'POST',
-            url,
-            headers=self.HEADERS,
-            data=payload,
-            params=self.QUERYSTRING
-        ).json()['token']
+        try:
+            token = requests.request(
+                'POST',
+                url,
+                headers=self.HEADERS,
+                data=payload,
+                params=self.QUERYSTRING
+            ).json()['token']
+        except KeyError:
+            return {'error': 'can\'t process the request'}
 
         response = self.get_submission(token)
         if response.ok:
@@ -37,7 +40,6 @@ class Judge0:
                 'stdout': response['stdout'],
                 'time': response['time'],
                 'exit_code': response['exit_code'],
-
             }
             return new_response
         else:

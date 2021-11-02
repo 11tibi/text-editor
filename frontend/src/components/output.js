@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import ToolBar from './tool_bar';
+import OutputArea from './output_area';
 
 class Output extends React.Component {
 
@@ -8,7 +9,7 @@ class Output extends React.Component {
         return(
             <Grid>
                 <ToolBar />
-
+                <OutputArea />
             </Grid>
         )
     }
