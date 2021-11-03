@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.fields import ReadOnlyField
+
 from .models import User, Theme, Code, Language
 
 
@@ -28,6 +30,8 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class CodeSerializer(serializers.ModelSerializer):
+    language_id = LanguageSerializer(read_only=True)
+
     class Meta:
         model = Code
         fields = '__all__'

@@ -8,14 +8,16 @@ import axiosInstance from "../axiosApi";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {set} from '../actions/editor';
+import {setCode} from "../actions/code";
 
 const mapState = state => {
-  return {
-    themes: state.themes,
-  }
+    return {
+        themes: state.themes,
+        code: state.code,
+    }
 };
 
-const mapDispatch = {set};
+const mapDispatch = {set, setCode};
 
 class Editor extends React.Component {
 
@@ -23,25 +25,29 @@ class Editor extends React.Component {
         axiosInstance.get('api/theme/').then((response) => {
             this.props.set(response.data);
         });
+        axiosInstance.get('api/code/' + this.props.match.params.id + '/').then((response) => {
+            this.props.setCode(response.data.code);
+            console.log(response.data);
+        });
     }
 
     render() {
         return (
-            <Grid container spacing={2} mt={0} >
+            <Grid container spacing={2} mt={0}>
                 <CssBaseline/>
                 <Grid item xs={1} sm={1} md={1}>
-                    <Box sx={{ bgcolor: '#45215f', height: '100vh' }} />
+                    <Box sx={{bgcolor: '#45215f', height: '100vh'}}/>
 
                 </Grid>
                 <Grid item xs={11} sm={11} md={6}>
                     {/*<Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />*/}
 
-                    <TextArea />
+                    <TextArea/>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
                     {/*<Box sx={{ bgcolor: '#ce4513', height: '100vh' }} />*/}
 
-                    <Output />
+                    <Output/>
                 </Grid>
             </Grid>
         )

@@ -19,7 +19,7 @@ function App() {
                 <Route exact path='/login/' component={Login}/>
                 <Route exact path='/register/' component={Register}/>
                 <ProtectedRoute exact path='/dashboard/' component={Dashboard}/>
-                <ProtectedRoute exact path='/editor/' component={Editor}/>
+                <ProtectedRoute exact path='/editor/:id' component={Editor}/>
             </Switch>
         </Router>
     );

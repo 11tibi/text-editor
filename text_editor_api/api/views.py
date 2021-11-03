@@ -37,7 +37,10 @@ class CodeView(viewsets.ViewSet):
     queryset = Code.objects.all()
 
     def retrieve(self, request, pk=None):
-        item = get_object_or_404(self.queryset, pk=pk)
+        item = get_object_or_404(
+            self.queryset,
+            pk=pk
+        )
         serializer = CodeSerializer(item)
         return Response(serializer.data)
 

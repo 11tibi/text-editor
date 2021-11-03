@@ -54,6 +54,7 @@ class TextArea extends React.Component {
                     theme={this.props.editor_theme.name}
                     onChange={this.handleChange}
                     name="UNIQUE_ID_OF_DIV"
+                    value={this.props.code.code}
                     editorProps={{$blockScrolling: true}}
                     setOptions={{
                         enableBasicAutocompletion: true,
