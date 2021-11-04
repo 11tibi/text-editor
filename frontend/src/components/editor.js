@@ -25,9 +25,13 @@ class Editor extends React.Component {
         axiosInstance.get('api/theme/').then((response) => {
             this.props.set(response.data);
         });
+
         axiosInstance.get('api/code/' + this.props.match.params.id + '/').then((response) => {
             this.props.setCode(response.data.code);
-            console.log(response.data);
+        }).catch((error) => {
+            if (error.response.status === 403) {
+                this.props.history.push('/dashboard/');
+            }
         });
     }
 

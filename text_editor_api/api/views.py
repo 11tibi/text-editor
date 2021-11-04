@@ -41,6 +41,8 @@ class CodeView(viewsets.ViewSet):
             self.queryset,
             pk=pk
         )
+        if item.user_id != request.user.id and not item.public:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = CodeSerializer(item)
         return Response(serializer.data)
 
