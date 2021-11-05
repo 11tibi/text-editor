@@ -35,3 +35,9 @@ class CodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Code
         fields = '__all__'
+
+
+class AuthenticatedUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', ]

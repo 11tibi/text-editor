@@ -3,15 +3,15 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-
 from .serializers import (
     RegisterSerializer,
     ThemeSerializer,
     LanguageSerializer,
-    CodeSerializer
+    CodeSerializer,
+    AuthenticatedUserSerializer,
 )
 from .permissions import IsUnauthenticated
-from .models import Theme, Language, Code
+from .models import Theme, Language, Code, User
 from .judge0_api import Judge0
 
 
@@ -88,3 +88,14 @@ class CodeSubmitView(APIView):
         data = request.data
         response = self.judge_api.submission(data['code'], data['language'])
         return Response(response, status=status.HTTP_200_OK)
+
+
+class AuthenticatedUserView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = AuthenticatedUserSerializer
+    queryset = User.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        user_data = self.queryset.get(pk=request.user.id)
+        serializer = AuthenticatedUserSerializer(user_data)
+        return Response(serializer.data, status=status.HTTP_200_OK)

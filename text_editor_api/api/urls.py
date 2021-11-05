@@ -5,7 +5,8 @@ from .views import (
     ThemeView,
     LanguageView,
     CodeView,
-    CodeSubmitView
+    CodeSubmitView,
+    AuthenticatedUserView,
 )
 
 router = routers.SimpleRouter()
@@ -16,6 +17,7 @@ urlpatterns = [
     path('theme/', ThemeView.as_view()),
     path('language/', LanguageView.as_view()),
     path('submit/', CodeSubmitView.as_view()),
+    path('user/', AuthenticatedUserView.as_view()),
 ]
 
 urlpatterns += router.urls

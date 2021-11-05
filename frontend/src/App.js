@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css';
 import Login from './components/login';
 import Register from './components/register';
@@ -10,19 +11,42 @@ import {
     Switch,
     Route
 } from 'react-router-dom';
+import axiosInstance from "./axiosApi";
+import {connect} from "react-redux";
+import {setUser} from "./actions/user";
 
-function App() {
-    return (
-        <Router>
-            <Navbar />
-            <Switch>
-                <Route exact path='/login/' component={Login}/>
-                <Route exact path='/register/' component={Register}/>
-                <ProtectedRoute exact path='/dashboard/' component={Dashboard}/>
-                <ProtectedRoute exact path='/editor/:id' component={Editor}/>
-            </Switch>
-        </Router>
-    );
+
+const mapState = state => {
+  return {
+    user: state.user,
+  }
+};
+
+const mapDispatch = {setUser};
+
+class App extends React.Component {
+    componentDidMount() {
+        axiosInstance.get('api/user/').then((response) => {
+            console.log(response.data);
+            this.props.setUser(response.data);
+        }).catch((error) => {
+
+        })
+    }
+
+    render() {
+        return (
+            <Router>
+                <Navbar/>
+                <Switch>
+                    <Route exact path='/login/' component={Login}/>
+                    <Route exact path='/register/' component={Register}/>
+                    <ProtectedRoute exact path='/dashboard/' component={Dashboard}/>
+                    <ProtectedRoute exact path='/editor/:id' component={Editor}/>
+                </Switch>
+            </Router>
+        );
+    }
 }
 
-export default App;
+export default  connect(mapState, mapDispatch)(App);
