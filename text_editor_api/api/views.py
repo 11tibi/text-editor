@@ -9,6 +9,7 @@ from .serializers import (
     LanguageSerializer,
     CodeSerializer,
     AuthenticatedUserSerializer,
+    UserCodeSerializer,
 )
 from .permissions import IsUnauthenticated
 from .models import Theme, Language, Code, User
@@ -92,4 +93,15 @@ class AuthenticatedUserView(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         user_data = self.queryset.get(pk=request.user.id)
         serializer = AuthenticatedUserSerializer(user_data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserCodeView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = CodeSerializer
+    queryset = Code.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        data = self.queryset.filter(user=request.user.id)
+        serializer = CodeSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
