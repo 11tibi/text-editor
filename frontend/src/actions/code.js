@@ -5,10 +5,10 @@ export const setCode = (code) => {
     };
 }
 
-export const setLanguage = (language_id) => {
+export const setLanguage = (language) => {
     return {
         type: 'SET_LANGUAGE',
-        payload: language_id,
+        payload: language,
     };
 }
 
@@ -17,4 +17,11 @@ export const setOutput = (output) => {
         type: 'SET_OUTPUT',
         payload: output,
     };
+}
+
+export const setTitle = (title) => {
+    return {
+        type: 'SET_TITLE',
+        payload: title,
+    }
 }

@@ -5,15 +5,18 @@ import MenuItem from "@mui/material/MenuItem/MenuItem";
 import FormControl from '@mui/material/FormControl';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import IconButton from "@mui/material/IconButton/IconButton";
+import SaveIcon from '@mui/icons-material/Save';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import axiosInstance from '../axiosApi';
 import {select_theme} from "../actions/text_area";
 import {setOutput} from '../actions/code';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
+import CreateDialog from './create_dialog';
 
 const mapState = state => {
     return {
+        authenticated: state.authenticated,
         editor_theme: state.editor_theme,
         themes: state.themes,
         code: state.code,
@@ -26,14 +29,13 @@ const mapDispatch = {select_theme, setOutput};
 class ToolBar extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            dialogOpen: false,
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleRun = this.handleRun.bind(this);
         this.handleCopy = this.handleCopy.bind(this);
-    }
-
-    componentDidMount() {
-
+        this.handleSave = this.handleSave.bind(this);
     }
 
     handleChange(e, value) {
@@ -64,6 +66,15 @@ class ToolBar extends React.Component {
         navigator.clipboard.writeText(this.props.code.code);
     }
 
+    handleSave(event) {
+        let data = {code: this.props.code.code};
+        axiosInstance.patch('api/code/' + this.props.match.params.id + '/', data).catch((error) => {
+            if (error.response.status === 403) {
+                this.setState({dialogOpen: true});
+            }
+        });
+    }
+
     render() {
         return (
             <Grid container mt={1} spacing={3}>
@@ -85,11 +96,20 @@ class ToolBar extends React.Component {
                     </IconButton>
                 </Grid>
                 <Grid xs={3} spacing={3}>
-                    <IconButton color="primary" aria-label="run" onClick={this.handleCopy}>
+                    <IconButton color="primary" aria-label="copy" onClick={this.handleCopy}>
                         <ContentCopyIcon/>
                     </IconButton>
                 </Grid>
-                <Grid xs={3} spacing={3}></Grid>
+                <Grid xs={3} spacing={3}>
+                    <IconButton color="primary" aria-label="save" onClick={this.handleSave}>
+                        <SaveIcon/>
+                    </IconButton>
+                </Grid>
+
+                <CreateDialog
+                    open={this.state.dialogOpen}
+                    handleClose={() => this.setState({dialogOpen: false})}
+                />
             </Grid>
         )
     }

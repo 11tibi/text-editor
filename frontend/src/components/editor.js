@@ -8,7 +8,7 @@ import axiosInstance from "../axiosApi";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {set} from '../actions/editor';
-import {setCode} from "../actions/code";
+import {setCode, setLanguage, setTitle} from "../actions/code";
 
 const mapState = state => {
     return {
@@ -17,7 +17,7 @@ const mapState = state => {
     }
 };
 
-const mapDispatch = {set, setCode};
+const mapDispatch = {set, setCode, setTitle, setLanguage};
 
 class Editor extends React.Component {
 
@@ -28,6 +28,8 @@ class Editor extends React.Component {
 
         axiosInstance.get('api/code/' + this.props.match.params.id + '/').then((response) => {
             this.props.setCode(response.data.code);
+            this.props.setTitle(response.data.name);
+            this.props.setLanguage(response.data.language);
         }).catch((error) => {
             if (error.response.status === 403) {
                 this.props.history.push('/dashboard/');

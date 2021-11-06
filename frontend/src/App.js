@@ -27,11 +27,8 @@ const mapDispatch = {setUser};
 class App extends React.Component {
     componentDidMount() {
         axiosInstance.get('api/user/').then((response) => {
-            console.log(response.data);
             this.props.setUser(response.data);
-        }).catch((error) => {
-
-        })
+        }).catch((error) => {})
     }
 
     render() {

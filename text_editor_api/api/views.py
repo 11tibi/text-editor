@@ -64,20 +64,14 @@ class CodeView(viewsets.ViewSet):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(
-                {'Access forbidden': 'You don\'t have permission to access this resource'},
-                status=status.HTTP_403_FORBIDDEN
-            )
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
     def delete(self, request, pk=None):
         if self.queryset.filter(user_id=request.user.id, id=pk).exists():
             get_object_or_404(self.queryset, pk=pk).delete()
-            return Response({'Success': 'Resource deleted.'}, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
         else:
-            return Response(
-                {'Access forbidden': 'You don\'t have permission to access this resource'},
-                status=status.HTTP_403_FORBIDDEN
-            )
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
 
 class CodeSubmitView(APIView):

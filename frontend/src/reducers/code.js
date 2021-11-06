@@ -1,4 +1,11 @@
-const code = (state = {code: '', language_id: 71, output:''}, action) => {
+const initialState = {
+    code: '',
+    title: '',
+    language: 0,
+    output:'',
+};
+
+const code = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_CODE':
             return {
@@ -8,12 +15,17 @@ const code = (state = {code: '', language_id: 71, output:''}, action) => {
         case 'SET_LANGUAGE':
             return {
                 ...state,
-                language_id: action.payload,
+                language: action.payload,
             };
         case 'SET_OUTPUT':
             return {
                 ...state,
                 output: state.output + '\n' + action.payload,
+            };
+        case 'SET_TITLE':
+            return {
+                ...state,
+                title:action.payload,
             };
         default:
             return state;

@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import authenticated from "../reducers/authenticated";
 import {logout} from "../actions/authenticated";
 import {connect} from "react-redux";
 import Logout from './logout';
@@ -32,10 +31,6 @@ class Navbar extends React.Component {
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             Home
                         </Typography>
-                        {/*https://github.com/securingsincity/react-ace*/}
-                        {/*https://www.bezkoder.com/react-redux-jwt-auth/*/}
-                        {/*https://www.bezkoder.com/react-refresh-token/*/}
-
                         { this.props.authenticated === true ?
                             <Logout /> :
                             <Button color="inherit" component={Link} to="/login/">Login</Button> }

@@ -30,7 +30,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class CodeSerializer(serializers.ModelSerializer):
-    language_id = LanguageSerializer(read_only=True)
+    # language = LanguageSerializer(read_only=True)
 
     class Meta:
         model = Code

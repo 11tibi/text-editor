@@ -77,8 +77,8 @@ class Theme(models.Model):
 
 
 class Code(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.RESTRICT)
-    language_id = models.ForeignKey(Language, on_delete=models.RESTRICT)
+    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    language = models.ForeignKey(Language, on_delete=models.RESTRICT)
     public = models.BooleanField(default=True)
     code = models.TextField()
     name = models.CharField(max_length=50)
