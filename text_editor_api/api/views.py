@@ -9,7 +9,6 @@ from .serializers import (
     LanguageSerializer,
     CodeSerializer,
     AuthenticatedUserSerializer,
-    UserCodeSerializer,
 )
 from .permissions import IsUnauthenticated
 from .models import Theme, Language, Code, User
