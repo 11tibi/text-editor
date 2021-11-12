@@ -104,3 +104,14 @@ class UserCodeView(generics.RetrieveAPIView):
         data = self.queryset.filter(user=request.user.id)
         serializer = CodeSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserDeleteView(generics.DestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = AuthenticatedUserSerializer
+    queryset = User.objects.all()
+
+    def delete(self, request, *args, **kwargs):
+        user = get_object_or_404(self.queryset, pk=request.user.id)
+        user.delete()
+        return Response(status=status.HTTP_200_OK)

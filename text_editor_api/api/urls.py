@@ -8,6 +8,7 @@ from .views import (
     CodeSubmitView,
     AuthenticatedUserView,
     UserCodeView,
+    UserDeleteView,
 )
 
 router = routers.SimpleRouter()
@@ -20,6 +21,7 @@ urlpatterns = [
     path('submit/', CodeSubmitView.as_view()),
     path('user/', AuthenticatedUserView.as_view()),
     path('user/code/', UserCodeView.as_view()),
+    path('user/delete/', UserDeleteView.as_view()),
 ]
 
 urlpatterns += router.urls
