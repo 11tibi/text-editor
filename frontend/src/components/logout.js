@@ -31,7 +31,14 @@ class Logout extends React.Component {
 
     render() {
         return (
-            <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+            <Button
+                color={this.props.color}
+                onClick={() => {this.handleLogout(); this.props.onClick();}}
+                disabled={this.props.disabled}
+                fullWidth={this.props.fullWidth}
+            >
+                {this.props.value}
+            </Button>
         )
     }
 }

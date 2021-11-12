@@ -9,14 +9,23 @@ import {Link as RouterLink} from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import axiosInstance from "../axiosApi";
 import PrivacySwitch from './privacySwitch';
+import {connect} from "react-redux";
+import DeleteUserDialog from "./deleteUserDialog";
 
+const mapState = state => {
+    return {
+        user: state.user,
+    }
+};
 
+const mapDispatch = {};
 
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             projects: [],
+            deleteDialogOpen: false,
         };
         this.handlePrivacyChange = this.handlePrivacyChange.bind(this);
     }
@@ -44,7 +53,17 @@ class Dashboard extends React.Component {
                 <CssBaseline/>
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
-
+                        <Typography mt={2} variant='h5' color='#001e3c' align='center'>
+                            {this.props.user.email}
+                        </Typography>
+                        <Grid mt={5} align='center'>
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                onClick={() => {this.setState({deleteDialogOpen: true})}}>
+                                Delete account
+                            </Button>
+                        </Grid>
                     </Grid>
                     <Grid item xs={9} rowSpacing={2}>
                         {this.state.projects.map(object =>
@@ -55,7 +74,9 @@ class Dashboard extends React.Component {
                                             <PrivacySwitch
                                                 sx={{m: 1}}
                                                 defaultChecked={object.public}
-                                                onChange={(event) => {this.handlePrivacyChange(event, object.id)}}
+                                                onChange={(event) => {
+                                                    this.handlePrivacyChange(event, object.id)
+                                                }}
                                             />
                                         }
                                         label=''
@@ -63,7 +84,8 @@ class Dashboard extends React.Component {
                                 </Grid>
                                 <Grid item xs={4} alignItems="center">
                                     <Typography variant="h6" align='left'>
-                                        <Link underline="none" color='#001e3c' component={RouterLink} to={'/editor/' + object.id}>
+                                        <Link underline="none" color='#001e3c' component={RouterLink}
+                                              to={'/editor/' + object.id}>
                                             {object.name}
                                         </Link>
                                     </Typography>
@@ -78,9 +100,13 @@ class Dashboard extends React.Component {
                         )}
                     </Grid>
                 </Grid>
+                <DeleteUserDialog
+                    open={this.state.deleteDialogOpen}
+                    handleClose={() => this.setState({deleteDialogOpen: false})}
+                />
             </Box>
         )
     }
 }
 
-export default Dashboard;
+export default connect(mapState, mapDispatch)(Dashboard);

@@ -32,7 +32,7 @@ class Navbar extends React.Component {
                             Home
                         </Typography>
                         { this.props.authenticated === true ?
-                            <Logout /> :
+                            <Logout value='Logout' color='inherit'/> :
                             <Button color="inherit" component={Link} to="/login/">Login</Button> }
                     </Toolbar>
                 </AppBar>
