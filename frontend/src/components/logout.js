@@ -26,6 +26,9 @@ class Logout extends React.Component {
         localStorage.removeItem('refresh_token');
         this.props.setUser({id: 0, email: ''});
         this.props.logout();
+        if(this.props.onClick) {
+            this.props.onClick();
+        }
         this.props.history.push('/login/');
     }
 
@@ -33,7 +36,7 @@ class Logout extends React.Component {
         return (
             <Button
                 color={this.props.color}
-                onClick={() => {this.handleLogout(); this.props.onClick();}}
+                onClick={() => {this.handleLogout();}}
                 disabled={this.props.disabled}
                 fullWidth={this.props.fullWidth}
             >

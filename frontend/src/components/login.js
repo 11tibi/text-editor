@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Typography from '@material-ui/core/Typography'
 import Container from '@mui/material/Container';
 import axiosInstance from "../axiosApi";
+import fetchUser from './fetchUser';
 
 const mapState = state => {
   return {
@@ -32,7 +33,7 @@ class Login extends React.Component {
         const data = new FormData(event.target);
         const loginAction = this.props;
         const { history: { push } } = this.props;
-        try{
+        try {
             axiosInstance.post('api/token/', {
                 email: data.get('email'),
                 password: data.get('password'),
@@ -41,6 +42,7 @@ class Login extends React.Component {
                 localStorage.setItem('access_token', response.data.access);
                 localStorage.setItem('refresh_token', response.data.refresh);
                 loginAction.login();
+                fetchUser();
                 push('/dashboard/');
                 return response.data;
             })
@@ -100,7 +102,7 @@ class Login extends React.Component {
                             variant="contained"
                             sx={{mt: 3, mb: 2}}
                         >
-                            Sign Up
+                            Login
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>

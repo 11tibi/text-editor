@@ -11,24 +11,11 @@ import {
     Switch,
     Route
 } from 'react-router-dom';
-import axiosInstance from "./axiosApi";
-import {connect} from "react-redux";
-import {setUser} from "./actions/user";
-
-
-const mapState = state => {
-  return {
-    user: state.user,
-  }
-};
-
-const mapDispatch = {setUser};
+import fetchUser from './components/fetchUser';
 
 class App extends React.Component {
     componentDidMount() {
-        axiosInstance.get('api/user/').then((response) => {
-            this.props.setUser(response.data);
-        }).catch((error) => {})
+        fetchUser();
     }
 
     render() {
@@ -46,4 +33,4 @@ class App extends React.Component {
     }
 }
 
-export default  connect(mapState, mapDispatch)(App);
+export default App;
