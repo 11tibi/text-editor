@@ -5,7 +5,6 @@ import store from '../store';
 
 function fetchUser() {
     axiosInstance.get('api/user/').then((response) => {
-        console.log(response.data);
         store.dispatch(setUser(response.data));
     }).catch((error) => {})
 }

@@ -11,6 +11,7 @@ import axiosInstance from "../axiosApi";
 import PrivacySwitch from './privacySwitch';
 import {connect} from "react-redux";
 import DeleteUserDialog from "./deleteUserDialog";
+import DeleteCode from "./DeleteCode";
 
 const mapState = state => {
     return {
@@ -28,6 +29,7 @@ class Dashboard extends React.Component {
             deleteDialogOpen: false,
         };
         this.handlePrivacyChange = this.handlePrivacyChange.bind(this);
+        this.handleUpdateProjects = this.handleUpdateProjects.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +46,17 @@ class Dashboard extends React.Component {
             public: event.target.checked,
         };
         axiosInstance.patch('api/code/' + pk + '/', data);
+    }
+
+    handleUpdateProjects(id) {
+        var newProjects = this.state.projects;
+        for (let i=0; i<newProjects.length; i++) {
+            if (newProjects[i].id === id) {
+                newProjects.splice(i, 1);
+                this.setState({projects: newProjects});
+                break;
+            }
+        }
     }
 
     render() {
@@ -82,7 +95,7 @@ class Dashboard extends React.Component {
                                         label=''
                                     />
                                 </Grid>
-                                <Grid item xs={4} alignItems="center">
+                                <Grid item xs={3} alignItems="center">
                                     <Typography variant="h6" align='left'>
                                         <Link underline="none" color='#001e3c' component={RouterLink}
                                               to={'/editor/' + object.id}>
@@ -95,6 +108,13 @@ class Dashboard extends React.Component {
                                 </Grid>
                                 <Grid item xs={3}>
                                     {new Date(object.updated_at).toISOString().split('T')[0]}
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <DeleteCode
+                                        id={object.id}
+                                        projects={this.state.projects}
+                                        handleUiUpdate={() => {this.handleUpdateProjects(object.id)}}
+                                    />
                                 </Grid>
                             </Grid>
                         )}

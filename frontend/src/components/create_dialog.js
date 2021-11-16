@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -28,7 +28,7 @@ class CreateDialog extends React.Component {
         this.props.handleClose();
         let data = {
             user: this.props.user.id,
-            language: this.props.code.language,
+            language: this.props.code.language.id,
             public: true,
             code: this.props.code.code,
             name: this.props.code.title,
@@ -37,7 +37,6 @@ class CreateDialog extends React.Component {
             this.props.history.push('/editor/' + response.data.id);
             alert(response.data.id);
         });
-        console.log(data);
     }
 
     render() {
