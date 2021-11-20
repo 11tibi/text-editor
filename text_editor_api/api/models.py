@@ -59,7 +59,7 @@ class User(AbstractBaseUser):
 class Language(models.Model):
     name = models.CharField(max_length=50, unique=True)
     extension = models.CharField(max_length=10, unique=True)
-    default_code = models.CharField(max_length=250)
+    judge0_id = models.IntegerField(unique=True, null=False, blank=False)
 
     def __str__(self):
         return f'{self.name}'
@@ -77,10 +77,10 @@ class Theme(models.Model):
 
 
 class Code(models.Model):
-    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.RESTRICT)
     public = models.BooleanField(default=True)
-    code = models.TextField()
+    code = models.TextField(blank=True)
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

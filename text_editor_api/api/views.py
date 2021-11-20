@@ -47,9 +47,9 @@ class CodeView(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        serializer = CodeSerializer(data=request.data)
+        serializer = CodeSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(language=Language.objects.get(id=request.data['language']))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

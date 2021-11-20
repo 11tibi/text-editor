@@ -29,6 +29,10 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 class CodeSerializer(serializers.ModelSerializer):
     language = LanguageSerializer(read_only=True)
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = Code
