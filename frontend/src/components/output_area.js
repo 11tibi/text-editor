@@ -29,6 +29,8 @@ class OutputArea extends React.Component {
                     value={this.props.code.output}
                     theme={this.props.editor_theme.name}
                     name="OUTPUT"
+                    id='output'
+                    style={{width: 'inherit', minHeight: '89vh'}}
                     editorProps={{$blockScrolling: true}}
                     setOptions={{
                         enableBasicAutocompletion: false,

@@ -46,7 +46,7 @@ class ToolBar extends React.Component {
     handleRun(event) {
         let data = {
             code: this.props.code.code,
-            language: this.props.code.language_id,
+            language: this.props.code.language.judge0_id,
         };
         try {
             axiosInstance.post('api/submit/', data).then(
@@ -77,30 +77,32 @@ class ToolBar extends React.Component {
 
     render() {
         return (
-            <Grid container mt={1} spacing={3}>
-                <Grid xs={3} spacing={3}>
-                    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                        <Select
-                            value={this.props.editor_theme.id}
-                            displayEmpty
-                            onChange={this.handleChange}
-                        >
-                            {this.props.themes.map((themes) => <MenuItem value={themes.id} data-code={themes.link}>{themes.name}</MenuItem>)}
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid xs={3} spacing={3}>
-                    <span>Run </span>
+            <Grid container mt={1} spacing={3}
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center">
+                {/*<Grid item xs={12}>
+                {/*    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>*/}
+                {/*        <Select*/}
+                {/*            value={this.props.editor_theme.id}*/}
+                {/*            displayEmpty*/}
+                {/*            onChange={this.handleChange}*/}
+                {/*        >*/}
+                {/*            {this.props.themes.map((themes) => <MenuItem value={themes.id} data-code={themes.link}>{themes.name}</MenuItem>)}*/}
+                {/*        </Select>*/}
+                {/*    </FormControl>*/}
+                {/*</Grid>*/}
+                <Grid item xs={12}>
                     <IconButton color="primary" aria-label="run" onClick={this.handleRun}>
                         <PlayArrowIcon/>
                     </IconButton>
                 </Grid>
-                <Grid xs={3} spacing={3}>
+                <Grid item xs={12}>
                     <IconButton color="primary" aria-label="copy" onClick={this.handleCopy}>
                         <ContentCopyIcon/>
                     </IconButton>
                 </Grid>
-                <Grid xs={3} spacing={3}>
+                <Grid item xs={12}>
                     <IconButton color="primary" aria-label="save" onClick={this.handleSave}>
                         <SaveIcon/>
                     </IconButton>
