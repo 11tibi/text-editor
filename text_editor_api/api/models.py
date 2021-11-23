@@ -28,9 +28,14 @@ class UserManager(BaseUserManager):
         return user
 
 
+def image_path(filename):
+    return '/'.join(['profile', filename])
+
+
 class User(AbstractBaseUser):
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=128)
+    image = models.ImageField(upload_to=image_path, blank=True, null=True)
     notifications = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

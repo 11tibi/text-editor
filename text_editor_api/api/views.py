@@ -9,6 +9,8 @@ from .serializers import (
     LanguageSerializer,
     CodeSerializer,
     AuthenticatedUserSerializer,
+    UserImageSerializer,
+    ChangePasswordSerializer,
 )
 from .permissions import IsUnauthenticated
 from .models import Theme, Language, Code, User
@@ -115,3 +117,44 @@ class UserDeleteView(generics.DestroyAPIView):
         user = get_object_or_404(self.queryset, pk=request.user.id)
         user.delete()
         return Response(status=status.HTTP_200_OK)
+
+
+class UpdateUserView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = UserImageSerializer
+    queryset = User.objects.all()
+
+    def patch(self, request, *args, **kwargs):
+        if self.queryset.filter(id=request.user.id).exists():
+            user_instance = get_object_or_404(self.queryset, id=request.user.id)
+            serializer = UserImageSerializer(user_instance, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChangePasswordSerializer
+    queryset = User.objects.all()
+
+    def patch(self, request, *args, **kwargs):
+        if self.queryset.filter(id=request.user.id).exists():
+            serializer = self.get_serializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class UserImageView(generics.RetrieveAPIView):
+    permission_classes = [permissions.AllowAny, ]
+    serializer_class = UserImageSerializer
+    queryset = User.objects.all()
