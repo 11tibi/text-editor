@@ -4,3 +4,10 @@ export const setUser = (user) => {
         payload: user,
     }
 }
+
+export const setImage = (img) => {
+    return {
+        type: 'SET_IMAGE',
+        payload: img,
+    }
+}

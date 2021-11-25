@@ -14,6 +14,7 @@ import DeleteUserDialog from "./deleteUserDialog";
 import DeleteCode from "./DeleteCode";
 import ChangePassword from "./ChangePassword";
 import ProfileImage from './ProfileImage';
+import {setImage} from "../actions/user";
 
 const mapState = state => {
     return {
@@ -21,7 +22,7 @@ const mapState = state => {
     }
 };
 
-const mapDispatch = {};
+const mapDispatch = {setImage};
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class Dashboard extends React.Component {
         };
         this.handlePrivacyChange = this.handlePrivacyChange.bind(this);
         this.handleUpdateProjects = this.handleUpdateProjects.bind(this);
+        this.handleImageUpload = this.handleImageUpload.bind(this);
     }
 
     componentDidMount() {
@@ -61,6 +63,16 @@ class Dashboard extends React.Component {
         }
     }
 
+    handleImageUpload(event) {
+        if (event.target.value !== '') {
+            let data = new FormData();
+            data.append('image', event.target.files[0]);
+            axiosInstance.patch('api/user/image/', data).then((response) => {
+                this.props.setImage(response.data.image);
+            });
+        }
+    }
+
     render() {
 
         return (
@@ -68,7 +80,19 @@ class Dashboard extends React.Component {
                 <CssBaseline/>
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
-                        <ProfileImage id={this.props.user.id} />
+                        <input
+                            accept="image/*"
+                            className='img-upload'
+                            id="contained-button-file"
+                            type="file"
+                            style={{
+                                display: "none",
+                            }}
+                            onChange={this.handleImageUpload}
+                        />
+                        <label htmlFor="contained-button-file">
+                            <ProfileImage id={this.props.user.id}/>
+                        </label>
                         <Typography mt={2} variant='h5' color='#001e3c' align='center'>
                             {this.props.user.email}
                         </Typography>
@@ -76,11 +100,13 @@ class Dashboard extends React.Component {
                             <Button
                                 variant="outlined"
                                 color="error"
-                                onClick={() => {this.setState({deleteDialogOpen: true})}}>
+                                onClick={() => {
+                                    this.setState({deleteDialogOpen: true})
+                                }}>
                                 Delete account
                             </Button>
                         </Grid>
-                        <ChangePassword />
+                        <ChangePassword/>
                     </Grid>
                     <Grid item xs={9} rowSpacing={2}>
                         {this.state.projects.map(object =>
@@ -117,7 +143,9 @@ class Dashboard extends React.Component {
                                     <DeleteCode
                                         id={object.id}
                                         projects={this.state.projects}
-                                        handleUiUpdate={() => {this.handleUpdateProjects(object.id)}}
+                                        handleUiUpdate={() => {
+                                            this.handleUpdateProjects(object.id)
+                                        }}
                                     />
                                 </Grid>
                             </Grid>

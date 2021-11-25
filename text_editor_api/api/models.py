@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-def image_path(filename):
+def image_path(instance, filename):
     return '/'.join(['profile', filename])
 
 

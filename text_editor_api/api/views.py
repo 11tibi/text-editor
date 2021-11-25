@@ -119,7 +119,7 @@ class UserDeleteView(generics.DestroyAPIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class UpdateUserView(generics.UpdateAPIView):
+class UserImageView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = UserImageSerializer
     queryset = User.objects.all()
@@ -152,9 +152,3 @@ class ChangePasswordView(generics.UpdateAPIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
-
-
-class UserImageView(generics.RetrieveAPIView):
-    permission_classes = [permissions.AllowAny, ]
-    serializer_class = UserImageSerializer
-    queryset = User.objects.all()
