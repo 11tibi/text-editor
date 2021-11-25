@@ -35,7 +35,6 @@ class CreateDialog extends React.Component {
         };
         axiosInstance.post('api/code/', data).then((response) => {
             this.props.history.push('/editor/' + response.data.id);
-            alert(response.data.id);
         });
     }
 

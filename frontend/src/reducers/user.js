@@ -1,4 +1,10 @@
-const user = (state = {id: 0, email: ''}, action) => {
+const initialState = {
+    id: 0,
+    email: '',
+    image: ''
+}
+
+const user = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_USER':
             return action.payload;

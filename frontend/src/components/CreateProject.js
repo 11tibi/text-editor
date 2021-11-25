@@ -14,6 +14,16 @@ import axiosInstance from "../axiosApi";
 import PrivacySwitch from "./privacySwitch";
 import Grid from "@mui/material/Grid";
 import {withRouter} from "react-router";
+import {setCode, setLanguage, setOutputEmpty, setTitle} from "../actions/code";
+import {connect} from "react-redux";
+
+const mapState = state => {
+    return {
+        code: state.code,
+    }
+};
+
+const mapDispatch = {setCode, setTitle, setOutputEmpty, setLanguage};
 
 class CreateProject extends React.Component {
     constructor(props) {
@@ -41,7 +51,6 @@ class CreateProject extends React.Component {
             name: this.state.title.value,
             code: '',
         }
-        console.log(this.state);
         axiosInstance.post('api/code/', data).then((response) => {
             this.props.history.push(`/editor/${response.data.id}/`);
             this.setState({
@@ -51,6 +60,11 @@ class CreateProject extends React.Component {
                 languageId: 0,
                 public: true,
             });
+            this.props.setCode(response.data.code);
+            this.props.setTitle(response.data.title);
+            this.props.setLanguage(response.data.language);
+            this.props.setOutputEmpty();
+            console.log(response.data);
         });
     }
 
@@ -141,4 +155,4 @@ class CreateProject extends React.Component {
     }
 }
 
-export default withRouter(CreateProject);
+export default withRouter(connect(mapState, mapDispatch)(CreateProject));

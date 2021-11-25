@@ -22,6 +22,11 @@ const code = (state = initialState, action) => {
                 ...state,
                 output: state.output + '\n' + action.payload,
             };
+        case 'SET_OUTPUT_EMPTY':
+            return {
+                ...state,
+                output: '',
+            };
         case 'SET_TITLE':
             return {
                 ...state,

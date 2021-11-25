@@ -44,7 +44,7 @@ class CodeSerializer(serializers.ModelSerializer):
 class AuthenticatedUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', ]
+        fields = ['id', 'email', 'image', ]
 
 
 class UserImageSerializer(serializers.ModelSerializer):

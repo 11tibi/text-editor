@@ -93,7 +93,7 @@ class AuthenticatedUserView(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         user_data = self.queryset.get(pk=request.user.id)
-        serializer = AuthenticatedUserSerializer(user_data)
+        serializer = AuthenticatedUserSerializer(user_data, context={"request": request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

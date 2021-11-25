@@ -3,13 +3,16 @@ import Grid from '@mui/material/Grid';
 import Select from "@mui/material/Select/Select";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
 import FormControl from '@mui/material/FormControl';
+import Tooltip from '@mui/material/Tooltip';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import IconButton from "@mui/material/IconButton/IconButton";
 import SaveIcon from '@mui/icons-material/Save';
+import ClearIcon from '@mui/icons-material/Clear';
+import DownloadIcon from '@mui/icons-material/Download';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import axiosInstance from '../axiosApi';
 import {select_theme} from "../actions/text_area";
-import {setOutput} from '../actions/code';
+import {setOutput, setOutputEmpty} from '../actions/code';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import CreateDialog from './create_dialog';
@@ -24,7 +27,7 @@ const mapState = state => {
     }
 };
 
-const mapDispatch = {select_theme, setOutput};
+const mapDispatch = {select_theme, setOutput, setOutputEmpty};
 
 class ToolBar extends React.Component {
     constructor(props) {
@@ -36,6 +39,8 @@ class ToolBar extends React.Component {
         this.handleRun = this.handleRun.bind(this);
         this.handleCopy = this.handleCopy.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.handleClearConsole = this.handleClearConsole.bind(this);
+        this.handleDownload = this.handleDownload.bind(this);
     }
 
     handleChange(e, value) {
@@ -52,7 +57,7 @@ class ToolBar extends React.Component {
             axiosInstance.post('api/submit/', data).then(
                 (response) => {
                     this.props.setOutput((
-                        '\n' + response.data.stdout + '\nProcess finished with exit code ' +
+                        '\n' + response.data.stdout + response.data.stderr + '\nProcess finished with exit code ' +
                         response.data.exit_code + '\nExecution time ' + response.data.time
                     ));
                 }
@@ -75,6 +80,19 @@ class ToolBar extends React.Component {
         });
     }
 
+    handleClearConsole(event) {
+        this.props.setOutputEmpty();
+    }
+
+    handleDownload(event) {
+        const element = document.createElement("a");
+        const file = new Blob([this.props.code.code], {type: 'text/plain'});
+        element.href = URL.createObjectURL(file);
+        element.download = `${this.props.code.title}.${this.props.code.language.extension}`;
+        document.body.appendChild(element);
+        element.click();
+    }
+
     render() {
         return (
             <Grid container mt={1} spacing={3}
@@ -92,20 +110,41 @@ class ToolBar extends React.Component {
                 {/*        </Select>*/}
                 {/*    </FormControl>*/}
                 {/*</Grid>*/}
+
                 <Grid item xs={12}>
-                    <IconButton color="primary" aria-label="run" onClick={this.handleRun}>
-                        <PlayArrowIcon/>
-                    </IconButton>
+                    <Tooltip title="Run">
+                        <IconButton color="primary" aria-label="run" onClick={this.handleRun}>
+                            <PlayArrowIcon/>
+                        </IconButton>
+                    </Tooltip>
                 </Grid>
                 <Grid item xs={12}>
-                    <IconButton color="primary" aria-label="copy" onClick={this.handleCopy}>
-                        <ContentCopyIcon/>
-                    </IconButton>
+                    <Tooltip title="Copy">
+                        <IconButton color="primary" aria-label="copy" onClick={this.handleCopy}>
+                            <ContentCopyIcon/>
+                        </IconButton>
+                    </Tooltip>
                 </Grid>
                 <Grid item xs={12}>
-                    <IconButton color="primary" aria-label="save" onClick={this.handleSave}>
-                        <SaveIcon/>
-                    </IconButton>
+                    <Tooltip title="Save">
+                        <IconButton color="primary" aria-label="save" onClick={this.handleSave}>
+                            <SaveIcon/>
+                        </IconButton>
+                    </Tooltip>
+                </Grid>
+                <Grid item xs={12}>
+                    <Tooltip title="Clear Output">
+                        <IconButton color="primary" aria-label="clear" onClick={this.handleClearConsole}>
+                            <ClearIcon/>
+                        </IconButton>
+                    </Tooltip>
+                </Grid>
+                <Grid item xs={12}>
+                    <Tooltip title="Download">
+                        <IconButton color="primary" aria-label="download" onClick={this.handleDownload}>
+                            <DownloadIcon/>
+                        </IconButton>
+                    </Tooltip>
                 </Grid>
 
                 <CreateDialog

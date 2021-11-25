@@ -19,6 +19,12 @@ export const setOutput = (output) => {
     };
 }
 
+export const setOutputEmpty = (output) => {
+    return {
+        type: 'SET_OUTPUT_EMPTY',
+    }
+}
+
 export const setTitle = (title) => {
     return {
         type: 'SET_TITLE',

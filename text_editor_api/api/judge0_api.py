@@ -40,7 +40,10 @@ class Judge0:
                 'stdout': response['stdout'],
                 'time': response['time'],
                 'exit_code': response['exit_code'],
+                'stderr': '',
             }
+            if response['stderr'] is not None:
+                new_response['stderr'] = response['stderr']
             return new_response
         else:
             return {'error': response.reason}

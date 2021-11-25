@@ -12,6 +12,8 @@ import PrivacySwitch from './privacySwitch';
 import {connect} from "react-redux";
 import DeleteUserDialog from "./deleteUserDialog";
 import DeleteCode from "./DeleteCode";
+import ChangePassword from "./ChangePassword";
+import ProfileImage from './ProfileImage';
 
 const mapState = state => {
     return {
@@ -66,6 +68,7 @@ class Dashboard extends React.Component {
                 <CssBaseline/>
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
+                        <ProfileImage id={this.props.user.id} />
                         <Typography mt={2} variant='h5' color='#001e3c' align='center'>
                             {this.props.user.email}
                         </Typography>
@@ -77,6 +80,7 @@ class Dashboard extends React.Component {
                                 Delete account
                             </Button>
                         </Grid>
+                        <ChangePassword />
                     </Grid>
                     <Grid item xs={9} rowSpacing={2}>
                         {this.state.projects.map(object =>
