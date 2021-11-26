@@ -65,6 +65,7 @@ class Language(models.Model):
     name = models.CharField(max_length=50, unique=True)
     extension = models.CharField(max_length=10, unique=True)
     judge0_id = models.IntegerField(unique=True, null=False, blank=False)
+    mode = models.CharField(max_length=50, null=False, blank=False)
 
     def __str__(self):
         return f'{self.name}'
