@@ -4,7 +4,7 @@ const light = {
     palette: {
         type: 'light',
         background: {
-          default:  '#DEE4E7',
+            default: '#DEE4E7',
         },
         primary: {
             main: '#736a4c',
@@ -22,7 +22,7 @@ const dark = {
     palette: {
         type: 'dark',
         background: {
-          default:  '#121212',
+            default: '#121212',
         },
         primary: {
             main: '#BB86FC',
@@ -33,18 +33,13 @@ const dark = {
         navbar: {
             main: '#1e1e1e',
         },
-        Dialog: {
-            color: '#121212',
-            backgroundColor: '#121212',
-
-        },
     },
 };
 
 function theme(mode) {
     if (mode === 'light') {
         return createTheme(light);
-    } else if(mode === 'dark') {
+    } else if (mode === 'dark') {
         return createTheme(dark);
     }
 }

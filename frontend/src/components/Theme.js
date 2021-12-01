@@ -24,9 +24,9 @@ class Theme extends React.Component {
     handleTheme(event) {
         this.props.setTheme();
         if (this.props.themes.light) {
-            this.props.select_theme({id: 3, name: 'tomorrow'});
-        } else {
             this.props.select_theme({id: 5, name: 'twilight'});
+        } else {
+            this.props.select_theme({id: 3, name: 'tomorrow'});
         }
     }
 

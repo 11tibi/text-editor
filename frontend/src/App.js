@@ -34,8 +34,8 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={
                 (this.props.themes.light===true) ?
-                    theme('dark') :
-                    theme('light')
+                    theme('light') :
+                    theme('dark')
             }>
             <Router>
                 <Navbar/>

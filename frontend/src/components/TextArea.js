@@ -51,6 +51,11 @@ class TextArea extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        if (this.props.themes.light) {
+            this.props.select_theme({id: 3, name: 'tomorrow'});
+        } else {
+            this.props.select_theme({id: 5, name: 'twilight'});
+        }
     }
 
     handleChange(value) {
