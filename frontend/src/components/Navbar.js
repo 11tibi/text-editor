@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {logout} from "../actions/authenticated";
 import {connect} from "react-redux";
-import Logout from './logout';
+import Logout from './Logout';
 import CreateProject from "./CreateProject";
-import Dashboard from './dashboard';
+import Dashboard from './Dashboard';
 
 const mapState = state => {
   return {
@@ -28,7 +28,7 @@ class Navbar extends React.Component {
     render() {
         return (
             <Box>
-                <AppBar position="static">
+                <AppBar position="static" color='navbar' className='navbar'>
                     <Toolbar style={toolbarStyle}>
                         <Box display='flex' flexGrow={1}>
                             <Box mx={3}>

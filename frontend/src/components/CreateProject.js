@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import axiosInstance from "../axiosApi";
-import PrivacySwitch from "./privacySwitch";
+import PrivacySwitch from "./PrivacySwitch";
 import Grid from "@mui/material/Grid";
 import {withRouter} from "react-router";
 import {setCode, setLanguage, setOutputEmpty, setTitle} from "../actions/code";

@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CloseIcon from '@material-ui/icons/Close';
 import axiosInstance from "../axiosApi";
-import Logout from './logout';
+import Logout from './Logout';
 
 class DeleteUserDialog extends React.Component {
     constructor(props) {

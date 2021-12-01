@@ -1,15 +1,14 @@
 import React from 'react';
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import ToolBar from './ToolBar';
-import TextArea from './text_area';
-import Output from './output';
+import TextArea from './TextArea';
 import axiosInstance from "../axiosApi";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {set} from '../actions/editor';
 import {setCode, setLanguage, setTitle} from "../actions/code";
+import OutputArea from "./OutputArea";
 
 const mapState = state => {
     return {
@@ -48,15 +47,17 @@ class Editor extends React.Component {
     render() {
         return (
             <Grid container mt={1}>
-                <CssBaseline />
+                <CssBaseline/>
                 <Grid item xs={1} sm={1} md={1}>
-                    <ToolBar />
+                    <ToolBar/>
                 </Grid>
                 <Grid item xs={11} sm={11} md={6}>
-                    <TextArea />
+                    <TextArea/>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
-                    <Output />
+                    <Grid mx={2}>
+                        <OutputArea/>
+                    </Grid>
                 </Grid>
             </Grid>
         )

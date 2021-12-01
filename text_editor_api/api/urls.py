@@ -26,7 +26,6 @@ urlpatterns = [
     path('user/', AuthenticatedUserView.as_view()),
     path('user/code/', UserCodeView.as_view()),
     path('user/delete/', UserDeleteView.as_view()),
-    # path('user/update/', UserView.as_view()),
     path('user/change-password/', ChangePasswordView.as_view()),
     path('user/image/', UserImageView.as_view()),
 ]

@@ -1,17 +1,17 @@
 import React from 'react'
 import './App.css';
-import Login from './components/login';
-import Register from './components/register';
-import Navbar from './components/navbar';
-import Dashboard from './components/dashboard';
+import Login from './components/Login';
+import Register from './components/Register';
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import Editor from './components/editor';
+import Editor from './components/Editor';
 import {
     BrowserRouter as Router,
     Switch,
     Route
 } from 'react-router-dom';
-import fetchUser from './components/fetchUser';
+import fetchUser from './components/FetchUser';
 
 class App extends React.Component {
     componentDidMount() {

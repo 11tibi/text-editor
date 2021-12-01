@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import Typography from '@material-ui/core/Typography'
 import Container from '@mui/material/Container';
 import axiosInstance from "../axiosApi";
-import fetchUser from './fetchUser';
+import fetchUser from './FetchUser';
 
 const mapState = state => {
   return {

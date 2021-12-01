@@ -15,7 +15,7 @@ import {select_theme} from "../actions/text_area";
 import {setOutput, setOutputEmpty} from '../actions/code';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import CreateDialog from './create_dialog';
+import CreateDialog from './CreateDialog';
 
 const mapState = state => {
     return {
