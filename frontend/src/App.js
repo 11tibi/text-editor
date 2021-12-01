@@ -12,6 +12,18 @@ import {
     Route
 } from 'react-router-dom';
 import fetchUser from './components/FetchUser';
+import theme from "./themes/theme";
+import {ThemeProvider} from '@mui/material/styles';
+import {connect} from "react-redux";
+
+const mapState = state => {
+    return {
+        themes: state.themes,
+    };
+
+};
+
+const mapDispatch = {}
 
 class App extends React.Component {
     componentDidMount() {
@@ -20,6 +32,11 @@ class App extends React.Component {
 
     render() {
         return (
+            <ThemeProvider theme={
+                (this.props.themes.light===true) ?
+                    theme('dark') :
+                    theme('light')
+            }>
             <Router>
                 <Navbar/>
                 <Switch>
@@ -29,8 +46,9 @@ class App extends React.Component {
                     <ProtectedRoute exact path='/editor/:id' component={Editor}/>
                 </Switch>
             </Router>
+            </ThemeProvider>
         );
     }
 }
 
-export default App;
+export default connect(mapState, mapDispatch)(App);

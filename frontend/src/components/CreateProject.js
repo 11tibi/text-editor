@@ -85,7 +85,7 @@ class CreateProject extends React.Component {
                 <Button color='inherit' mx={3} onClick={this.handleOpen}>
                     Create Project
                 </Button>
-                <Dialog fullWidth maxWidth='sm' open={this.state.isOpen} onClose={this.handleClose}>
+                <Dialog open={this.state.isOpen} onClose={this.handleClose}>
                     <DialogTitle>Create</DialogTitle>
                     <DialogContent>
                         <DialogContentText>

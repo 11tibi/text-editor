@@ -93,7 +93,7 @@ class Dashboard extends React.Component {
                         <label htmlFor="contained-button-file">
                             <ProfileImage id={this.props.user.id}/>
                         </label>
-                        <Typography mt={2} variant='h5' color='#001e3c' align='center'>
+                        <Typography mt={2} variant='h5' color='secondary' align='center'>
                             {this.props.user.email}
                         </Typography>
                         <Grid mt={5} align='center'>
@@ -127,7 +127,7 @@ class Dashboard extends React.Component {
                                 </Grid>
                                 <Grid item xs={3} alignItems="center">
                                     <Typography variant="h6" align='left'>
-                                        <Link underline="none" color='#001e3c' component={RouterLink}
+                                        <Link underline="none" color='secondary' component={RouterLink}
                                               to={'/editor/' + object.id}>
                                             {object.name}
                                         </Link>

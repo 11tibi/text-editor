@@ -6,7 +6,6 @@ import TextArea from './TextArea';
 import axiosInstance from "../axiosApi";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {set} from '../actions/editor';
 import {setCode, setLanguage, setTitle} from "../actions/code";
 import OutputArea from "./OutputArea";
 
@@ -17,7 +16,7 @@ const mapState = state => {
     }
 };
 
-const mapDispatch = {set, setCode, setTitle, setLanguage};
+const mapDispatch = {setCode, setTitle, setLanguage};
 
 class Editor extends React.Component {
     constructor(props) {
@@ -28,10 +27,6 @@ class Editor extends React.Component {
     }
 
     componentDidMount() {
-        axiosInstance.get('api/theme/').then((response) => {
-            this.props.set(response.data);
-        });
-
         axiosInstance.get('api/code/' + this.props.match.params.id + '/').then((response) => {
             this.props.setCode(response.data.code);
             this.props.setTitle(response.data.name);

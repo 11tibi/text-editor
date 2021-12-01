@@ -5,17 +5,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
-import theme from "./themes/theme";
-import {ThemeProvider} from '@mui/material/styles';
-
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </ThemeProvider>
+        <Provider store={store}>
+            <App/>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

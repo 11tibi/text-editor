@@ -9,6 +9,7 @@ import {logout} from "../actions/authenticated";
 import {connect} from "react-redux";
 import Logout from './Logout';
 import CreateProject from "./CreateProject";
+import Theme from './Theme';
 import Dashboard from './Dashboard';
 
 const mapState = state => {
@@ -28,7 +29,7 @@ class Navbar extends React.Component {
     render() {
         return (
             <Box>
-                <AppBar position="static" color='navbar' className='navbar'>
+                <AppBar position="static" color='navbar'>
                     <Toolbar style={toolbarStyle}>
                         <Box display='flex' flexGrow={1}>
                             <Box mx={3}>
@@ -43,6 +44,7 @@ class Navbar extends React.Component {
                                 <Button color="inherit" component={Link} to="/dashboard/">Dashboard</Button>
                             </Box>
                         </Box>
+                        <Theme/>
                         { this.props.authenticated === true ?
                             <Logout value='Logout' color='inherit' />:
                             <Button color="inherit" component={Link} to="/login/">Login</Button> }

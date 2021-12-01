@@ -76,7 +76,7 @@ class ChangePassword extends React.Component {
                 <Button variant="outlined" color="error" onClick={this.handleOpen}>
                     Change Password
                 </Button>
-                <Dialog fullWidth maxWidth='sm' open={this.state.isOpen} onClose={this.handleClose}>
+                <Dialog open={this.state.isOpen} onClose={this.handleClose}>
                     <DialogTitle>Change password</DialogTitle>
                     <DialogContent>
                         <TextField
