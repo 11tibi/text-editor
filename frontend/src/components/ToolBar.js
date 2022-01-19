@@ -99,18 +99,6 @@ class ToolBar extends React.Component {
                   direction="column"
                   alignItems="center"
                   justifyContent="center">
-                {/*<Grid item xs={12}>
-                {/*    <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>*/}
-                {/*        <Select*/}
-                {/*            value={this.props.editor_theme.id}*/}
-                {/*            displayEmpty*/}
-                {/*            onChange={this.handleChange}*/}
-                {/*        >*/}
-                {/*            {this.props.themes.map((themes) => <MenuItem value={themes.id} data-code={themes.link}>{themes.name}</MenuItem>)}*/}
-                {/*        </Select>*/}
-                {/*    </FormControl>*/}
-                {/*</Grid>*/}
-
                 <Grid item xs={12}>
                     <Tooltip title="Run">
                         <IconButton color="primary" aria-label="run" onClick={this.handleRun}>
