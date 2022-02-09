@@ -15,6 +15,9 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            login_error: false,
+        }
     }
 
     handleSubmit(event) {
@@ -25,13 +28,11 @@ class Register extends React.Component {
             method: 'POST',
             url: process.env.REACT_APP_API_ENDPOINT + 'api/register/',
             data: data,
-        })
-            .then(function(response){
+        }).then(function(response){
                 push('/login/');
-            })
-            .catch(function (error){
-                console.info(error);
-            })
+        }).catch((error) => {
+            this.setState({login_error: true});
+        })
     }
 
     render() {
@@ -80,6 +81,9 @@ class Register extends React.Component {
                                 />
                             </Grid>
                         </Grid>
+                        <Typography component="h6" variant="subtitle1" color="error" align="left" display="none">
+                            {this.state.login_error ? 'Email already exists.' : null}
+                        </Typography>
                         <Button
                             type="submit"
                             fullWidth

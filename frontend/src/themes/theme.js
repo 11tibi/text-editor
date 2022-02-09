@@ -15,6 +15,9 @@ const light = {
         navbar: {
             main: '#e7e7e7',
         },
+        error: {
+            main: '#801313',
+        },
     },
 };
 
@@ -32,6 +35,9 @@ const dark = {
         },
         navbar: {
             main: '#1e1e1e',
+        },
+        error: {
+            main: '#801313',
         },
     },
 };

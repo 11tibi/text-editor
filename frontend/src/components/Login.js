@@ -26,6 +26,9 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            login_error: false,
+        }
     }
 
     handleSubmit(event) {
@@ -45,6 +48,8 @@ class Login extends React.Component {
                 fetchUser();
                 push('/dashboard/');
                 return response.data;
+            }).catch((error) => {
+                this.setState({login_error: true});
             })
         } catch (error) {
             throw error;
@@ -66,6 +71,7 @@ class Login extends React.Component {
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
+
                     <Box component="form" onSubmit={this.handleSubmit} noValidate sx={{mt: 3}}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -96,6 +102,9 @@ class Login extends React.Component {
                                 />
                             </Grid>
                         </Grid>
+                        <Typography component="h6" variant="subtitle1" color="error" align="left" display="none">
+                            {this.state.login_error ? 'Username or password is invalid.' : null}
+                        </Typography>
                         <Button
                             type="submit"
                             fullWidth
@@ -104,6 +113,7 @@ class Login extends React.Component {
                         >
                             Login
                         </Button>
+
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link to='/register/' variant="body2">
