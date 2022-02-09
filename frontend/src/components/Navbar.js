@@ -37,12 +37,16 @@ class Navbar extends React.Component {
                                     Home
                                 </Typography>
                             </Box>
-                            <Box mx={5}>
-                                <CreateProject />
-                            </Box>
-                            <Box mx={1}>
-                                <Button color="inherit" component={Link} to="/dashboard/">Dashboard</Button>
-                            </Box>
+                            {this.props.authenticated === true ? (
+                                <>
+                                    <Box mx={5}>
+                                        <CreateProject />
+                                    </Box>
+                                    <Box mx={1}>
+                                        <Button color="inherit" component={Link} to="/dashboard/">Dashboard</Button>
+                                    </Box>
+                                </>
+                            ): null}
                         </Box>
                         <Theme/>
                         { this.props.authenticated === true ?
