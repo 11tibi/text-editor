@@ -1,6 +1,6 @@
 # Text Editor
 
----
+
 
 Live demo http://20.111.36.171/register
 
@@ -12,7 +12,7 @@ A simple text editor built with [django](https://www.djangoproject.com/),
 
 # Setup
 
----
+
 
 Clone the repository.
 
